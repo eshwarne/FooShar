@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State var noOfPeople:Float = 3
+    @State private var noOfPeople:Float = 0
+    private var twoColumnGridConfig:[GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+    @State var people : [String] = []
     var body: some View {
         Form{
             Section{ // Number of friends
@@ -18,16 +20,42 @@ struct HomeView: View {
                     Text("Number Of Friends: \(Int(noOfPeople))")
                 }
                 
-                Slider(value: $noOfPeople, in: 0...20, step:1)
+                Slider(value: $noOfPeople, in: 0...20, step:1){_ in
+                    if(people.count < Int(noOfPeople)){
+                        let chunk = [people.count..<Int(noOfPeople)]
+                        chunk.forEach{_ in
+                            people.append("")
+                        }
+                    }
+                    else {
+                        people = Array(people[0..<Int(noOfPeople)])
+                    }
+                    
+                }
                 
+            }
+            Section{
+                ScrollView {
+                    LazyVGrid(columns:twoColumnGridConfig){
+                        ForEach((0..<people.count), id:\.self){index in
+                            TextField("Name",text:$people[index])
+                                .padding()
+                        }
+                    }
+                }
+                .frame(height: UIScreen.main.bounds.height/3, alignment: .center)
             }
             Section{ // Button
                 VStack{
                     RoundedButton(btnLabel:"SPLIT")
+                        .onTapGesture {
+                            print(people)
+                        }
                 }
                 .frame(maxWidth:.infinity)
             }
         }
+        .navigationTitle("Food Price Splite")
     }
 }
 

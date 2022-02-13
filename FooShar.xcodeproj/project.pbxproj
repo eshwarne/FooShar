@@ -13,6 +13,8 @@
 		F764F8A627B8F09700954751 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F764F89427B8F09700954751 /* ContentView.swift */; };
 		F764F8A727B8F09700954751 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F764F89527B8F09700954751 /* Assets.xcassets */; };
 		F764F8A827B8F09700954751 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F764F89527B8F09700954751 /* Assets.xcassets */; };
+		F764F8B327B8F63C00954751 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F764F8B227B8F63C00954751 /* HomeView.swift */; };
+		F764F8B827B8F9BC00954751 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F764F8B727B8F9BC00954751 /* RoundedButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		F764F89A27B8F09700954751 /* FooShar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FooShar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F764F8A027B8F09700954751 /* FooShar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FooShar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F764F8A227B8F09700954751 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		F764F8B227B8F63C00954751 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F764F8B727B8F9BC00954751 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 		F764F89227B8F09700954751 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				F764F8B627B8F9A700954751 /* Components */,
+				F764F8B127B8F61F00954751 /* Screens */,
 				F764F89327B8F09700954751 /* FooSharApp.swift */,
 				F764F89427B8F09700954751 /* ContentView.swift */,
 				F764F89527B8F09700954751 /* Assets.xcassets */,
@@ -76,6 +82,22 @@
 				F764F8A227B8F09700954751 /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		F764F8B127B8F61F00954751 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F764F8B227B8F63C00954751 /* HomeView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F764F8B627B8F9A700954751 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F764F8B727B8F9BC00954751 /* RoundedButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,8 +198,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F764F8B327B8F63C00954751 /* HomeView.swift in Sources */,
 				F764F8A527B8F09700954751 /* ContentView.swift in Sources */,
 				F764F8A327B8F09700954751 /* FooSharApp.swift in Sources */,
+				F764F8B827B8F9BC00954751 /* RoundedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,16 +6,34 @@
 //
 
 import SwiftUI
+var twoColumnGridConfig:[GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+var currencyCode = Locale.current.currencyCode ?? "INR"
 
 struct HomeView: View {
+    // MARK: State variables
     @State private var noOfPeople:Float = 0
-    private var twoColumnGridConfig:[GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
     @State var people : [String] = []
+    @State private var billAmount = 0
+    
+    // MARK: UI View
     var body: some View {
         Form{
+            Section{ // Bill Amount input
+                HStack{
+                    Image(systemName: "newspaper.fill")
+                        .frame(width:25)
+                        .padding(.trailing, 10)
+                    
+                    Text("Bill Amount")
+                    
+                }
+                TextField("Amount", value:$billAmount, format: .currency(code: currencyCode))
+                    .keyboardType(.decimalPad)
+            }
             Section{ // Number of friends
-                HStack(spacing:0){
+                HStack{
                     Image(systemName: "person.3.fill")
+                        .frame(width:25)
                         .padding(.trailing, 10)
                     Text("Number Of Friends: \(Int(noOfPeople))")
                 }
@@ -34,20 +52,27 @@ struct HomeView: View {
                 }
                 
             }
-            Section{
-                ScrollView {
-                    LazyVGrid(columns:twoColumnGridConfig){
+            Section{ // Friends names input
+                HStack{
+                    Image(systemName: "person.fill.viewfinder")
+                        .frame(width:25)
+                        .padding(.trailing, 10)
+                    Text("Friend(s) names")
+                }
+                .frame(maxWidth:.infinity, alignment: .leading)
+                
+                ScrollView {                    LazyVGrid(columns:twoColumnGridConfig){
                         ForEach((0..<people.count), id:\.self){index in
                             TextField("Name",text:$people[index])
                                 .padding()
                         }
                     }
                 }
-                .frame(height: UIScreen.main.bounds.height/3, alignment: .center)
+                .frame(height: UIScreen.main.bounds.height/4, alignment: .center)
             }
-            Section{ // Button
+            Section{ // Split Button
                 VStack{
-                    RoundedButton(btnLabel:"SPLIT")
+                    RoundedButton(btnLabel:"SPLIT\n\(billAmount.formatted(.currency(code: currencyCode)))")
                         .onTapGesture {
                             print(people)
                         }
@@ -55,7 +80,8 @@ struct HomeView: View {
                 .frame(maxWidth:.infinity)
             }
         }
-        .navigationTitle("Food Price Splite")
+        .navigationTitle("Set the Stage")
+        
     }
 }
 

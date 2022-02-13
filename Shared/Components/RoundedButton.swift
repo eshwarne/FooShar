@@ -9,8 +9,8 @@ import SwiftUI
 
 struct RoundedButton: View {
     var btnLabel:String = "Split"
-    var height: CGFloat = 120;
-    var width: CGFloat = 160;
+    var height: CGFloat = UIScreen.main.bounds.height*0.1;
+    var width: CGFloat = UIScreen.main.bounds.width*0.8;
     var body: some View {
         Button(action:{}){
             ZStack{
@@ -20,12 +20,14 @@ struct RoundedButton: View {
                    
                 HStack{
                     Text(btnLabel)
+                        .multilineTextAlignment(.center)
                         .foregroundColor(.white)
                         .font(.system(size: 30))
+                        
                 }
             }
         }
-        .frame(width: width, height: height, alignment: .center)
+        .frame(width: 10 + width, height: 10 + height, alignment: .center)
     }
 }
 

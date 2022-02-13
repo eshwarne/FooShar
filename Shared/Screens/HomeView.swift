@@ -63,7 +63,7 @@ struct HomeView: View {
                 
                 ScrollView {                    LazyVGrid(columns:twoColumnGridConfig){
                         ForEach((0..<people.count), id:\.self){index in
-                            TextField("Name",text:$people[index])
+                            NameInputCard(name:$people[index])
                                 .padding()
                         }
                     }

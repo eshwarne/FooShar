@@ -9,14 +9,24 @@ import SwiftUI
 var twoColumnGridConfig:[GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
 var currencyCode = Locale.current.currencyCode ?? "INR"
 
+enum HomeFormFields {
+    case BILL_AMOUNT, FRIEND_NAMES
+}
+
 struct HomeView: View {
     // MARK: State variables
     @State private var noOfPeople:Float = 0
     @State var people : [String] = []
     @State private var billAmount = 0
+    @State private var splitResultScreenIsActive:Bool = false
+    @FocusState private var currentFocusedField: HomeFormFields?
     
     // MARK: UI View
     var body: some View {
+        ZStack{
+            NavigationLink(destination: Text(people.joined(separator:", ")), isActive:$splitResultScreenIsActive) {
+                EmptyView()
+            }
         Form{
             Section{ // Bill Amount input
                 HStack{
@@ -29,6 +39,10 @@ struct HomeView: View {
                 }
                 TextField("Amount", value:$billAmount, format: .currency(code: currencyCode))
                     .keyboardType(.decimalPad)
+                    .focused($currentFocusedField, equals:HomeFormFields.BILL_AMOUNT )
+                    .onChange(of: currentFocusedField) { field in
+                       print(field)
+                    }
             }
             Section{ // Number of friends
                 HStack{
@@ -61,10 +75,10 @@ struct HomeView: View {
                 }
                 .frame(maxWidth:.infinity, alignment: .leading)
                 
-                ScrollView {                    LazyVGrid(columns:twoColumnGridConfig){
+                ScrollView {                    LazyVGrid(columns:twoColumnGridConfig, spacing: 0){
                         ForEach((0..<people.count), id:\.self){index in
                             NameInputCard(name:$people[index])
-                                .padding()
+                                .padding(.trailing, 10)
                         }
                     }
                 }
@@ -74,14 +88,14 @@ struct HomeView: View {
                 VStack{
                     RoundedButton(btnLabel:"SPLIT\n\(billAmount.formatted(.currency(code: currencyCode)))")
                         .onTapGesture {
-                            print(people)
+                            splitResultScreenIsActive = true
                         }
                 }
                 .frame(maxWidth:.infinity)
             }
         }
+        }
         .navigationTitle("Set the Stage")
-        
     }
 }
 

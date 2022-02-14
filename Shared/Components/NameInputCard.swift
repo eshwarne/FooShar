@@ -11,16 +11,41 @@ var screenHeight = UIScreen.main.bounds.height
 struct NameInputCard: View {
     // MARK: State variables
     @Binding var name:String;
+    @State private var isOnFocus = false;
+    @FocusState private var currentFocus: String?
     // MARK: UI Declaration
     var body: some View {
         ZStack{
             VStack{
-                TextEditor(text: $name)
-                    .background(Color("NameCardBackgroundColor"))
-                    .cornerRadius(5)
-                    .padding(-15)
-                    .font(.system(size: 20))
-                    .foregroundColor(.white)
+                ZStack{
+                    TextEditor(text: $name)
+                        .background(Color("NameCardBackgroundColor"))
+                        .cornerRadius(5)
+                        .padding(-15)
+                        .font(.system(size: 20))
+                        .foregroundColor(.white)
+                        .focused($currentFocus, equals: "NAME_INPUT_FIELD")
+                        .onChange(of: currentFocus) { currentFocus in
+                            if(currentFocus != "NAME_INPUT_FIELD" ){
+                                isOnFocus = false;
+                            } else {
+                                isOnFocus = true;
+                            }
+                           
+                        }
+                    if(name.count == 0 && isOnFocus == false){
+                        Text("Name")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                            .opacity(0.7)
+                            .onTapGesture {
+                                self.isOnFocus = true
+                                self.currentFocus = "NAME_INPUT_FIELD"
+                            }
+                    }
+                   
+                        
+
+                }
             }
             .frame(maxWidth:.infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()
